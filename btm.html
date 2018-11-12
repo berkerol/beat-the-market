@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
+  <title>Beat the Market</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" rel="stylesheet" />
+  <link href="btm.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="modal fade" id="settings">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Settings</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-inline row">
+            <div class="form-group col-xs-4 col-md-3 col-lg-2 col-xs-offset-0 col-md-offset-2 col-lg-offset-3">
+              <label for="days">Total Days</label>
+              <input type="text" class="form-control" id="days" size="5">
+            </div>
+            <div class="form-group col-xs-4 col-md-3 col-lg-2">
+              <label for="min">Possible Min Price</label>
+              <input type="text" class="form-control" id="min" size="5">
+            </div>
+            <div class="form-group col-xs-4 col-md-3 col-lg-2">
+              <label for="change">Base Change</label>
+              <input type="text" class="form-control" id="change" size="5">
+            </div>
+          </form>
+          <form class="form-inline row">
+            <div class="form-group col-xs-4 col-md-3 col-lg-2 col-xs-offset-0 col-md-offset-2 col-lg-offset-3">
+              <label for="price">Initial Price</label>
+              <input type="text" class="form-control" id="price" size="5">
+            </div>
+            <div class="form-group col-xs-4 col-md-3 col-lg-2">
+              <label for="max">Possible Max Price</label>
+              <input type="text" class="form-control" id="max" size="5">
+            </div>
+            <div class="form-group col-xs-4 col-md-3 col-lg-2">
+              <label for="daysPerSecond">Days/Second</label>
+              <input type="text" class="form-control" id="daysPerSecond" size="5">
+            </div>
+          </form>
+          <form class="form-inline row">
+            <div class="form-group col-xs-4 col-md-3 col-lg-2 col-xs-offset-0 col-md-offset-2 col-lg-offset-3">
+              <label for="money">Initial Money</label>
+              <input type="text" class="form-control" id="money" size="5">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-info" onclick="save()" accesskey="a" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk"></span> S<span style="text-decoration: underline">a</span>ve</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn-group center">
+    <a class="btn btn-lg btn-info" onclick="restart()" accesskey="r"><span class="glyphicon glyphicon-repeat"></span> <span style="text-decoration: underline">R</span>estart</a>
+    <a class="btn btn-lg btn-info" accesskey="t" data-toggle="modal" data-target="#settings"><span class="glyphicon glyphicon-cog"></span> Se<span style="text-decoration: underline">t</span>tings</a>
+  </div>
+  <canvas id="canvas">Your browser doesn't support HTML5.</canvas>
+  <div class="center" id="menu">
+    <h4>Money: $<span id="currentMoney"></span> &nbsp;&nbsp;&nbsp;&nbsp; Stocks: <span id="stocks"></span> &nbsp;&nbsp;&nbsp;&nbsp; Day: <span id="currentDay"></span> &nbsp;&nbsp;&nbsp;&nbsp; Price: $<span id="currentPrice"></span></h4>
+    <div class="text-center">
+      <a class="btn btn-lg btn-success" onclick="if(!locked)buy()" accesskey="b"><span class="glyphicon glyphicon-ok"></span> <span style="text-decoration: underline">B</span>uy</a>
+      <a class="btn btn-lg btn-danger" onclick="if(!locked)sell()" accesskey="s"><span class="glyphicon glyphicon-remove"></span> <span style="text-decoration: underline">S</span>ell</a>
+      <a class="btn btn-lg btn-primary" onclick="if(!locked)play()" accesskey="c" id="play"><span class="glyphicon glyphicon-play"></span> <span style="text-decoration: underline">C</span>ontinue</a>
+      <a class="btn btn-lg btn-warning" onclick="if(!locked)end()" accesskey="e"><span class="glyphicon glyphicon-fast-forward"></span> <span style="text-decoration: underline">E</span>nd</a>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <script src="btm.js"></script>
+</body>
+
+</html>
