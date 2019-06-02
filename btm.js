@@ -1,6 +1,6 @@
 /* global Chart */
-let canvas = document.getElementById('canvas');
-let ctx = canvas.getContext('2d');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight - document.getElementById('menu').offsetHeight - 10;
 
@@ -11,15 +11,15 @@ let minPrice = 15;
 let maxPrice = 200;
 let baseChange = 0.01;
 let daysPerSecond = 1;
-let color = 'rgba(54, 162, 235, ';
-let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+const color = 'rgba(54, 162, 235, ';
+const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
 gradient.addColorStop(0, color + '0.8)');
 gradient.addColorStop(1, color + '0.0)');
 
-let trends = [[-9, 3], [-7, 4], [-7, 4], [-5, 5], [-5, 5], [-5, 5], [-4, 7], [-4, 7], [-3, 9]];
-let trendPeriods = [5, 10, 10, 20, 20, 20, 60, 60, 120]; // 20 trading days = 1 month
-let volatilities = [1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 5, 5, 8];
-let volatilityPeriods = [5, 10, 10, 20, 20, 20, 60, 60, 120]; // 20 trading days = 1 month
+const trends = [[-9, 3], [-7, 4], [-7, 4], [-5, 5], [-5, 5], [-5, 5], [-4, 7], [-4, 7], [-3, 9]];
+const trendPeriods = [5, 10, 10, 20, 20, 20, 60, 60, 120]; // 20 trading days = 1 month
+const volatilities = [1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 5, 5, 8];
+const volatilityPeriods = [5, 10, 10, 20, 20, 20, 60, 60, 120]; // 20 trading days = 1 month
 
 let locked;
 let stocks;
@@ -32,7 +32,7 @@ let volatility;
 let volatilityPeriod;
 let interval;
 
-let chart = new Chart(ctx, {
+const chart = new Chart(ctx, {
   type: 'line',
   data: {
     labels: [],
@@ -82,7 +82,7 @@ let chart = new Chart(ctx, {
             change = 0;
             percentChange = 0;
           } else {
-            let prev = data.datasets[0].data[tooltipItem.index - 1];
+            const prev = data.datasets[0].data[tooltipItem.index - 1];
             change = tooltipItem.yLabel - prev;
             percentChange = Math.round(change / prev * 10000) / 100;
           }
@@ -131,7 +131,7 @@ function reset () {
 }
 
 function resetButton () {
-  let playButton = document.getElementById('play');
+  const playButton = document.getElementById('play');
   playButton.setAttribute('onclick', 'if(!locked)play()');
   playButton.setAttribute('accesskey', 'c');
   playButton.innerHTML = '<span class="glyphicon glyphicon-play"></span> <span style="text-decoration: underline">C</span>ontinue';
@@ -144,7 +144,7 @@ function restart () {
 }
 
 function play () {
-  let playButton = document.getElementById('play');
+  const playButton = document.getElementById('play');
   playButton.setAttribute('onclick', 'if(!locked)pause()');
   playButton.setAttribute('accesskey', 'w');
   playButton.innerHTML = '<span class="glyphicon glyphicon-pause"></span> <span style="text-decoration: underline">W</span>ait';
@@ -169,8 +169,8 @@ function end () {
   }
   chart.update();
   window.setTimeout(function () {
-    let currentReturn = currentMoney - money;
-    let marketReturn = (currentPrice / price - 1) * money;
+    const currentReturn = currentMoney - money;
+    const marketReturn = (currentPrice / price - 1) * money;
     let message = 'YOUR RETURN: ' + (currentReturn > 0 ? '+' : '') + (Math.round(currentReturn * 100) / 100) + '\nMARKET RETURN: ' + (marketReturn > 0 ? '+' : '') + (Math.round(marketReturn * 100) / 100) + '\n';
     if (currentReturn > marketReturn) {
       message += 'CONGRATULATIONS, YOU BEAT THE MARKET!';
@@ -222,7 +222,7 @@ function update () {
   if (currentDay++ % volatilityPeriod === 0) {
     updateVolatility();
   }
-  let change = currentPrice * baseChange * volatility * (Math.random() * (trend[1] - trend[0]) + trend[0]) / 10;
+  const change = currentPrice * baseChange * volatility * (Math.random() * (trend[1] - trend[0]) + trend[0]) / 10;
   currentPrice += change;
   if (currentPrice < minPrice) {
     currentPrice += Math.abs(change) * 2;
