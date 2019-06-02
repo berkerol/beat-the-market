@@ -86,9 +86,9 @@ const chart = new Chart(ctx, {
             change = tooltipItem.yLabel - prev;
             percentChange = Math.round(change / prev * 10000) / 100;
           }
-          return ['Price: $' + Math.round(tooltipItem.yLabel * 100) / 100,
-            'Change: ' + (change > 0 ? '+' : '') + Math.round(change * 100) / 100,
-            '% Change: ' + (percentChange > 0 ? '+' : '') + percentChange + '%'];
+          return [`Price: $${Math.round(tooltipItem.yLabel * 100) / 100}`,
+            `Change: ${change > 0 ? '+' : ''}${Math.round(change * 100) / 100}`,
+            `% Change: ${percentChange > 0 ? '+' : ''}${percentChange}%`];
         }
       }
     }
@@ -171,7 +171,7 @@ function end () {
   window.setTimeout(function () {
     const currentReturn = currentMoney - money;
     const marketReturn = (currentPrice / price - 1) * money;
-    let message = 'YOUR RETURN: ' + (currentReturn > 0 ? '+' : '') + (Math.round(currentReturn * 100) / 100) + '\nMARKET RETURN: ' + (marketReturn > 0 ? '+' : '') + (Math.round(marketReturn * 100) / 100) + '\n';
+    let message = `YOUR RETURN: ${currentReturn >= 0 ? '+' : '-'}$${Math.abs(Math.round(currentReturn * 100) / 100)}\nMARKET RETURN: ${marketReturn >= 0 ? '+' : '-'}$${Math.abs(Math.round(marketReturn * 100) / 100)}\n`;
     if (currentReturn > marketReturn) {
       message += 'CONGRATULATIONS, YOU BEAT THE MARKET!';
     } else if (currentReturn < marketReturn) {
