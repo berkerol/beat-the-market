@@ -21,7 +21,7 @@ const trendPeriods = [5, 10, 10, 20, 20, 20, 60, 60, 120]; // 20 trading days = 
 const volatilities = [1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 5, 5, 8];
 const volatilityPeriods = [5, 10, 10, 20, 20, 20, 60, 60, 120]; // 20 trading days = 1 month
 
-let locked;
+window.locked = false;
 let stocks;
 let currentMoney;
 let currentDay;
@@ -105,7 +105,7 @@ document.getElementById('daysPerSecond').value = daysPerSecond;
 restart();
 window.addEventListener('resize', resizeHandler);
 
-function save () {
+window.save = function () {
   money = +document.getElementById('money').value;
   days = +document.getElementById('days').value;
   price = +document.getElementById('price').value;
@@ -113,12 +113,12 @@ function save () {
   maxPrice = +document.getElementById('max').value;
   baseChange = +document.getElementById('change').value;
   daysPerSecond = +document.getElementById('daysPerSecond').value;
-}
+};
 
 function reset () {
   updateTrend();
   updateVolatility();
-  locked = false;
+  window.locked = false;
   stocks = 0;
   currentMoney = money;
   writeMoney();
@@ -143,13 +143,13 @@ function restart () {
   chart.update();
 }
 
-function play () {
+window.play = function () {
   const playButton = document.getElementById('play');
   playButton.setAttribute('onclick', 'if(!locked)pause()');
   playButton.setAttribute('accesskey', 'w');
   playButton.innerHTML = '<span class="glyphicon glyphicon-pause"></span> <span style="text-decoration: underline">W</span>ait';
   animate();
-}
+};
 
 function pause () {
   window.clearInterval(interval);
@@ -158,7 +158,7 @@ function pause () {
 
 function end () {
   pause();
-  locked = true;
+  window.locked = true;
   if (stocks > 0) {
     currentMoney += stocks * currentPrice;
     stocks = 0;
@@ -195,7 +195,7 @@ function animate () {
   }, 1000 / daysPerSecond);
 }
 
-function buy () {
+window.buy = function () {
   if (currentMoney >= currentPrice) {
     stocks++;
     currentMoney -= currentPrice;
@@ -203,9 +203,9 @@ function buy () {
   } else {
     window.alert('NOT ENOUGH FUNDS!');
   }
-}
+};
 
-function sell () {
+window.sell = function () {
   if (stocks > 0) {
     stocks--;
     currentMoney += currentPrice;
@@ -213,7 +213,7 @@ function sell () {
   } else {
     window.alert('NOT ENOUGH STOCKS!');
   }
-}
+};
 
 function update () {
   if (currentDay % trendPeriod === 0) {
