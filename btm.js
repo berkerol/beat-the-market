@@ -4,13 +4,20 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight - document.getElementById('menu').offsetHeight - 10;
 
-let money = 200;
-let days = 250; // 250 trading days = 1 year
-let price = 50;
-let minPrice = 15;
-let maxPrice = 200;
-let baseChange = 0.01;
-let daysPerSecond = 1;
+const defaultMoney = 200;
+const defaultDays = 250; // 250 trading days = 1 year
+const defaultPrice = 50;
+const defaultMinPrice = 15;
+const defaultMaxPrice = 200;
+const defaultBaseChange = 0.01;
+const defaultDaysPerSecond = 1;
+let money = defaultMoney;
+let days = defaultDays;
+let price = defaultPrice;
+let minPrice = defaultMinPrice;
+let maxPrice = defaultMaxPrice;
+let baseChange = defaultBaseChange;
+let daysPerSecond = defaultDaysPerSecond;
 const color = 'rgba(54, 162, 235, ';
 const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
 gradient.addColorStop(0, color + '0.8)');
@@ -95,15 +102,20 @@ const chart = new Chart(ctx, {
   }
 });
 
-document.getElementById('money').value = money;
-document.getElementById('days').value = days;
-document.getElementById('price').value = price;
-document.getElementById('min').value = minPrice;
-document.getElementById('max').value = maxPrice;
-document.getElementById('change').value = baseChange;
-document.getElementById('daysPerSecond').value = daysPerSecond;
+resetInputs();
 restart();
+document.addEventListener('keyup', keyUpHandler);
 window.addEventListener('resize', resizeHandler);
+
+function resetInputs () {
+  document.getElementById('money').value = money;
+  document.getElementById('days').value = days;
+  document.getElementById('price').value = price;
+  document.getElementById('min').value = minPrice;
+  document.getElementById('max').value = maxPrice;
+  document.getElementById('change').value = baseChange;
+  document.getElementById('daysPerSecond').value = daysPerSecond;
+}
 
 window.save = function () {
   money = +document.getElementById('money').value;
@@ -252,6 +264,19 @@ function writeMoney () {
 function writePrice () {
   document.getElementById('currentDay').innerHTML = currentDay;
   document.getElementById('currentPrice').innerHTML = Math.round(currentPrice * 100) / 100;
+}
+
+function keyUpHandler (e) {
+  if (e.keyCode === 82) {
+    money = defaultMoney;
+    days = defaultDays;
+    price = defaultPrice;
+    minPrice = defaultMinPrice;
+    maxPrice = defaultMaxPrice;
+    baseChange = defaultBaseChange;
+    daysPerSecond = defaultDaysPerSecond;
+    resetInputs();
+  }
 }
 
 function resizeHandler () {
