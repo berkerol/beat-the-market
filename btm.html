@@ -6,76 +6,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <title>Beat the Market</title>
   <meta name="description" content="Buy low, sell high, make money">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="btm.css">
 </head>
 
 <body>
-  <div class="modal fade" id="settings">
+  <div class="modal fade" id="settings" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title">Settings</h4>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
         </div>
         <div class="modal-body">
-          <form class="form-inline row">
-            <div class="form-group col-xs-4 col-md-3 col-lg-2 col-xs-offset-0 col-md-offset-2 col-lg-offset-3">
-              <label for="days">Total Days</label>
-              <input type="number" class="form-control" id="days" min="3" max="999">
+          <form>
+            <div class="form-row">
+              <div class="form-group col">
+                <label for="days">Total Days</label>
+                <input type="number" class="form-control" id="days" min="3" max="999">
+              </div>
+              <div class="form-group col">
+                <label for="min">Possible Min Price</label>
+                <input type="number" class="form-control" id="min" min="1" max="9999">
+              </div>
+              <div class="form-group col">
+                <label for="change">Base Change</label>
+                <input type="number" class="form-control" id="change" min="0" max="100">
+              </div>
             </div>
-            <div class="form-group col-xs-4 col-md-3 col-lg-2">
-              <label for="min">Possible Min Price</label>
-              <input type="number" class="form-control" id="min" min="1" max="9999">
+            <div class="form-row">
+              <div class="form-group col">
+                <label for="price">Initial Price</label>
+                <input type="number" class="form-control" id="price" min="1" max="9999">
+              </div>
+              <div class="form-group col">
+                <label for="max">Possible Max Price</label>
+                <input type="number" class="form-control" id="max" min="1" max="9999">
+              </div>
+              <div class="form-group col">
+                <label for="daysPerSecond">Days/Second</label>
+                <input type="number" class="form-control" id="daysPerSecond" min="1" max="9">
+              </div>
             </div>
-            <div class="form-group col-xs-4 col-md-3 col-lg-2">
-              <label for="change">Base Change</label>
-              <input type="number" class="form-control" id="change" min="0" max="1">
-            </div>
-          </form>
-          <form class="form-inline row">
-            <div class="form-group col-xs-4 col-md-3 col-lg-2 col-xs-offset-0 col-md-offset-2 col-lg-offset-3">
-              <label for="price">Initial Price</label>
-              <input type="number" class="form-control" id="price" min="1" max="9999">
-            </div>
-            <div class="form-group col-xs-4 col-md-3 col-lg-2">
-              <label for="max">Possible Max Price</label>
-              <input type="number" class="form-control" id="max" min="1" max="9999">
-            </div>
-            <div class="form-group col-xs-4 col-md-3 col-lg-2">
-              <label for="daysPerSecond">Days/Second</label>
-              <input type="number" class="form-control" id="daysPerSecond" min="1" max="9">
-            </div>
-          </form>
-          <form class="form-inline row">
-            <div class="form-group col-xs-4 col-md-3 col-lg-2 col-xs-offset-0 col-md-offset-2 col-lg-offset-3">
-              <label for="money">Initial Money</label>
-              <input type="number" class="form-control" id="money" min="1" max="99999">
+            <div class="form-row">
+              <div class="form-group col">
+                <label for="money">Initial Money</label>
+                <input type="number" class="form-control" id="money" min="1" max="99999">
+              </div>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <a class="btn btn-info" onclick="save()" accesskey="a" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk"></span> S<span style="text-decoration: underline">a</span>ve</a>
+          <button type="button" class="btn btn-primary" onclick="save()" accesskey="a" data-dismiss="modal"><i class="fas fa-save"></i> S<u>a</u>ve</button>
         </div>
       </div>
     </div>
   </div>
-  <div class="btn-group center">
-    <a class="btn btn-lg btn-info" onclick="restart()" accesskey="r"><span class="glyphicon glyphicon-repeat"></span> <span style="text-decoration: underline">R</span>estart</a>
-    <a class="btn btn-lg btn-info" accesskey="t" data-toggle="modal" data-target="#settings"><span class="glyphicon glyphicon-cog"></span> Se<span style="text-decoration: underline">t</span>tings</a>
+  <div class="btn-group btn-group-lg btn-group-center">
+    <button type="button" class="btn btn-info" onclick="restart()" accesskey="r"><i class="fas fa-sync"></i> <u>R</u>estart</button>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#settings" accesskey="t"><i class="fas fa-cog"></i> Se<u>t</u>tings</button>
   </div>
   <canvas id="canvas">Your browser doesn't support HTML5.</canvas>
-  <div class="center" id="menu">
-    <h4>Money: $<span id="currentMoney"></span> &nbsp;&nbsp;&nbsp;&nbsp; Stocks: <span id="stocks"></span> &nbsp;&nbsp;&nbsp;&nbsp; Day: <span id="currentDay"></span> &nbsp;&nbsp;&nbsp;&nbsp; Price: $<span id="currentPrice"></span></h4>
-    <div class="text-center">
-      <a class="btn btn-lg btn-success" onclick="if(!locked)buy()" accesskey="b"><span class="glyphicon glyphicon-ok"></span> <span style="text-decoration: underline">B</span>uy</a>
-      <a class="btn btn-lg btn-danger" onclick="if(!locked)sell()" accesskey="s"><span class="glyphicon glyphicon-remove"></span> <span style="text-decoration: underline">S</span>ell</a>
-      <a class="btn btn-lg btn-primary" onclick="if(!locked)play()" accesskey="c" id="play"><span class="glyphicon glyphicon-play"></span> <span style="text-decoration: underline">C</span>ontinue</a>
-      <a class="btn btn-lg btn-warning" onclick="if(!locked)end()" accesskey="e"><span class="glyphicon glyphicon-fast-forward"></span> <span style="text-decoration: underline">E</span>nd</a>
-    </div>
+  <h5 class="btn-group-center" style="bottom: 55px">Money: $<span id="currentMoney"></span> &nbsp;&nbsp;&nbsp;&nbsp; Stocks: <span id="stocks"></span> &nbsp;&nbsp;&nbsp;&nbsp; Day: <span id="currentDay"></span> &nbsp;&nbsp;&nbsp;&nbsp; Price: $<span id="currentPrice"></span></h5>
+  <div class="btn-group btn-group-lg btn-group-center" style="bottom: 10px">
+    <button type="button" class="btn btn-success" onclick="if(!locked)buy()" accesskey="b"><i class="fas fa-check"></i> <u>B</u>uy</button>
+    <button type="button" class="btn btn-danger" onclick="if(!locked)sell()" accesskey="s"><i class="fas fa-times"></i> <u>S</u>ell</button>
+    <button type="button" class="btn btn-primary" onclick="if(!locked)play()" accesskey="c" id="play"><i class="fas fa-play"></i> <u>C</u>ontinue</button>
+    <button type="button" class="btn btn-warning" onclick="if(!locked)end()" accesskey="e"><i class="fas fa-fast-forward"></i> <u>E</u>nd</button>
   </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/a1c4b21e48.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
   <script src="btm.js"></script>
   <script>

@@ -2,7 +2,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight - document.getElementById('menu').offsetHeight - 10;
+canvas.height = window.innerHeight;
 
 const defaultMoney = 200;
 const defaultDays = 250; // 250 trading days = 1 year
@@ -57,7 +57,8 @@ const chart = new Chart(ctx, {
     layout: {
       padding: {
         top: 50,
-        right: 20
+        right: 20,
+        bottom: 90
       }
     },
     scales: {
@@ -113,7 +114,7 @@ function resetInputs () {
   document.getElementById('price').value = price;
   document.getElementById('min').value = minPrice;
   document.getElementById('max').value = maxPrice;
-  document.getElementById('change').value = baseChange;
+  document.getElementById('change').value = baseChange * 100;
   document.getElementById('daysPerSecond').value = daysPerSecond;
 }
 
@@ -123,7 +124,7 @@ window.save = function () {
   price = +document.getElementById('price').value;
   minPrice = +document.getElementById('min').value;
   maxPrice = +document.getElementById('max').value;
-  baseChange = +document.getElementById('change').value;
+  baseChange = +document.getElementById('change').value / 100;
   daysPerSecond = +document.getElementById('daysPerSecond').value;
 };
 
@@ -146,7 +147,7 @@ function resetButton () {
   const playButton = document.getElementById('play');
   playButton.setAttribute('onclick', 'if(!locked)play()');
   playButton.setAttribute('accesskey', 'c');
-  playButton.innerHTML = '<span class="glyphicon glyphicon-play"></span> <span style="text-decoration: underline">C</span>ontinue';
+  playButton.innerHTML = '<i class="fas fa-play"></i> <u>C</u>ontinue';
 }
 
 function restart () {
@@ -159,7 +160,7 @@ window.play = function () {
   const playButton = document.getElementById('play');
   playButton.setAttribute('onclick', 'if(!locked)pause()');
   playButton.setAttribute('accesskey', 'w');
-  playButton.innerHTML = '<span class="glyphicon glyphicon-pause"></span> <span style="text-decoration: underline">W</span>ait';
+  playButton.innerHTML = '<i class="fas fa-pause"></i> <u>W</u>ait';
   animate();
 };
 
@@ -281,7 +282,7 @@ function keyUpHandler (e) {
 
 function resizeHandler () {
   canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight - document.getElementById('menu').offsetHeight - 10;
+  canvas.height = window.innerHeight;
   chart.resize();
   chart.update();
 }
