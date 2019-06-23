@@ -2,17 +2,14 @@
   margin: 0;
 }
 
+body {
+  background: #eee;
+}
+
 canvas {
-  background: #eeeeee;
   display: block;
 }
 
 input[type="number"] {
   width: 5em;
-}
-
-.btn-group-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }

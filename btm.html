@@ -74,18 +74,20 @@
       </div>
     </div>
   </div>
-  <div class="btn-group btn-group-lg btn-group-center">
-    <button type="button" class="btn btn-info" onclick="restart()" accesskey="r"><i class="fas fa-sync"></i> <u>R</u>estart</button>
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#settings" accesskey="t"><i class="fas fa-cog"></i> Se<u>t</u>tings</button>
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      <h5 class="my-auto"><span>Money: $<span id="currentMoney"></span></span><span class="ml-4 mr-4">Stocks: <span id="stocks"></span></span><span>Day: <span id="currentDay"></span></span><span class="ml-4 mr-4">Price: $<span id="currentPrice"></span></span></h5>
+      <div class="btn-group">
+        <button type="button" class="btn btn-success" onclick="if(!locked)buy()" accesskey="b"><i class="fas fa-check"></i> <u>B</u>uy</button>
+        <button type="button" class="btn btn-danger" onclick="if(!locked)sell()" accesskey="s"><i class="fas fa-times"></i> <u>S</u>ell</button>
+        <button type="button" class="btn btn-primary" onclick="if(!locked)play()" accesskey="c" id="play"><i class="fas fa-play"></i> <u>C</u>ontinue</button>
+        <button type="button" class="btn btn-warning" onclick="if(!locked)end()" accesskey="e"><i class="fas fa-fast-forward"></i> <u>E</u>nd</button>
+        <button type="button" class="btn btn-info" onclick="restart()" accesskey="r"><i class="fas fa-sync"></i> <u>R</u>estart</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#settings" accesskey="t"><i class="fas fa-cog"></i> Se<u>t</u>tings</button>
+      </div>
+    </div>
   </div>
   <canvas id="canvas">Your browser doesn't support HTML5.</canvas>
-  <h5 class="btn-group-center" style="bottom: 55px">Money: $<span id="currentMoney"></span> &nbsp;&nbsp;&nbsp;&nbsp; Stocks: <span id="stocks"></span> &nbsp;&nbsp;&nbsp;&nbsp; Day: <span id="currentDay"></span> &nbsp;&nbsp;&nbsp;&nbsp; Price: $<span id="currentPrice"></span></h5>
-  <div class="btn-group btn-group-lg btn-group-center" style="bottom: 10px">
-    <button type="button" class="btn btn-success" onclick="if(!locked)buy()" accesskey="b"><i class="fas fa-check"></i> <u>B</u>uy</button>
-    <button type="button" class="btn btn-danger" onclick="if(!locked)sell()" accesskey="s"><i class="fas fa-times"></i> <u>S</u>ell</button>
-    <button type="button" class="btn btn-primary" onclick="if(!locked)play()" accesskey="c" id="play"><i class="fas fa-play"></i> <u>C</u>ontinue</button>
-    <button type="button" class="btn btn-warning" onclick="if(!locked)end()" accesskey="e"><i class="fas fa-fast-forward"></i> <u>E</u>nd</button>
-  </div>
 </body>
 
 </html>

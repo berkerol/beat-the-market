@@ -2,7 +2,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.height = window.innerHeight - 38;
 
 const defaultMoney = 200;
 const defaultDays = 250; // 250 trading days = 1 year
@@ -56,9 +56,7 @@ const chart = new Chart(ctx, {
     },
     layout: {
       padding: {
-        top: 50,
-        right: 20,
-        bottom: 90
+        right: 20
       }
     },
     scales: {
@@ -282,7 +280,7 @@ function keyUpHandler (e) {
 
 function resizeHandler () {
   canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.height = window.innerHeight - 38;
   chart.resize();
   chart.update();
 }
