@@ -1,43 +1,21 @@
-/* global Chart */
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight - 38;
-
+/* global Chart createHeaderMenuRow createModalButton createModal keyUpHandler canvas ctx containerElements defaultDays defaultPrice defaultMinPrice defaultMaxPrice defaultBaseChange defaultDaysPerSecond color gradient days:writable price:writable minPrice:writable maxPrice:writable baseChange:writable daysPerSecond:writable currentDay:writable currentPrice:writable trend trendPeriod volatility volatilityPeriod interval:writable updateTrend updateVolatility resizeHandler */
 const defaultMoney = 200;
-const defaultDays = 250; // 250 trading days = 1 year
-const defaultPrice = 50;
-const defaultMinPrice = 15;
-const defaultMaxPrice = 200;
-const defaultBaseChange = 0.01;
-const defaultDaysPerSecond = 1;
-let money = defaultMoney;
-let days = defaultDays;
-let price = defaultPrice;
-let minPrice = defaultMinPrice;
-let maxPrice = defaultMaxPrice;
-let baseChange = defaultBaseChange;
-let daysPerSecond = defaultDaysPerSecond;
-const color = 'rgba(54, 162, 235, ';
-const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-gradient.addColorStop(0, color + '0.8)');
-gradient.addColorStop(1, color + '0.0)');
 
-const trends = [[-9, 3], [-7, 4], [-7, 4], [-5, 5], [-5, 5], [-5, 5], [-4, 7], [-4, 7], [-3, 9]];
-const trendPeriods = [5, 10, 10, 20, 20, 20, 60, 60, 120]; // 20 trading days = 1 month
-const volatilities = [1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 5, 5, 8];
-const volatilityPeriods = [5, 10, 10, 20, 20, 20, 60, 60, 120]; // 20 trading days = 1 month
+let money;
 
-window.locked = false;
 let stocks;
 let currentMoney;
-let currentDay;
-let currentPrice;
-let trend;
-let trendPeriod;
-let volatility;
-let volatilityPeriod;
-let interval;
+
+const modalElements = [[['Total Days', 'days', 3, 999, 'number'], ['Possible Min Price', 'min', 1, 9999, 'number'], ['Base Change', 'change', 0, 100, 'number']], [['Initial Price', 'price', 1, 9999, 'number'], ['Possible Max Price', 'max', 1, 9999, 'number'], ['Days/Second', 'daysPerSecond', 1, 9, 'number']], [['Initial Money', 'money', 1, 99999, 'number']]];
+const headerElements = ['h5', 'my-auto', '<span>Money: $<span id="currentMoney"></span></span><span class="ml-4 mr-4">Stocks: <span id="stocks"></span></span><span>Day: <span id="currentDay"></span></span><span class="ml-4 mr-4">Price: $<span id="currentPrice"></span></span>'];
+const buttonElements = [['success', 'if(!locked)buy()', 'b', 'check', '<u>B</u>uy'], ['danger', 'if(!locked)sell()', 's', 'times', '<u>S</u>ell'], ['primary', 'if(!locked)play()', 'c', 'play', '<u>C</u>ontinue'], ['warning', 'if(!locked)end()', 'e', 'fast-forward', '<u>E</u>nd'], ['info', 'restart()', 'r', 'sync', '<u>R</u>estart'], ['info', '', 't', 'cog', 'Se<u>t</u>tings']];
+const header = createHeaderMenuRow('d-flex justify-content-center', 'btn-group', headerElements, buttonElements);
+const buttonGroup = header.children[1];
+const playButton = buttonGroup.children[2];
+createModalButton(buttonGroup, 5);
+document.getElementsByClassName('container')[0].appendChild(header);
+createModal(modalElements);
+canvas.height = window.innerHeight - (containerElements.length === 0 ? 0 : containerElements[0].clientHeight);
 
 const chart = new Chart(ctx, {
   type: 'line',
@@ -107,6 +85,13 @@ document.addEventListener('keyup', keyUpHandler);
 window.addEventListener('resize', resizeHandler);
 
 function resetInputs () {
+  money = defaultMoney;
+  days = defaultDays;
+  price = defaultPrice;
+  minPrice = defaultMinPrice;
+  maxPrice = defaultMaxPrice;
+  baseChange = defaultBaseChange;
+  daysPerSecond = defaultDaysPerSecond;
   document.getElementById('money').value = money;
   document.getElementById('days').value = days;
   document.getElementById('price').value = price;
@@ -142,7 +127,6 @@ function reset () {
 }
 
 function resetButton () {
-  const playButton = document.getElementById('play');
   playButton.setAttribute('onclick', 'if(!locked)play()');
   playButton.setAttribute('accesskey', 'c');
   playButton.innerHTML = '<i class="fas fa-play"></i> <u>C</u>ontinue';
@@ -155,7 +139,6 @@ function restart () {
 }
 
 window.play = function () {
-  const playButton = document.getElementById('play');
   playButton.setAttribute('onclick', 'if(!locked)pause()');
   playButton.setAttribute('accesskey', 'w');
   playButton.innerHTML = '<i class="fas fa-pause"></i> <u>W</u>ait';
@@ -245,16 +228,6 @@ function update () {
   chart.data.datasets[0].data.push(currentPrice);
 }
 
-function updateTrend () {
-  trend = trends[Math.floor(Math.random() * trends.length)];
-  trendPeriod = trendPeriods[Math.floor(Math.random() * trendPeriods.length)];
-}
-
-function updateVolatility () {
-  volatility = volatilities[Math.floor(Math.random() * volatilities.length)];
-  volatilityPeriod = volatilityPeriods[Math.floor(Math.random() * volatilityPeriods.length)];
-}
-
 function writeMoney () {
   document.getElementById('currentMoney').innerHTML = Math.round(currentMoney * 100) / 100;
   document.getElementById('stocks').innerHTML = stocks;
@@ -263,24 +236,4 @@ function writeMoney () {
 function writePrice () {
   document.getElementById('currentDay').innerHTML = currentDay;
   document.getElementById('currentPrice').innerHTML = Math.round(currentPrice * 100) / 100;
-}
-
-function keyUpHandler (e) {
-  if (e.keyCode === 82) {
-    money = defaultMoney;
-    days = defaultDays;
-    price = defaultPrice;
-    minPrice = defaultMinPrice;
-    maxPrice = defaultMaxPrice;
-    baseChange = defaultBaseChange;
-    daysPerSecond = defaultDaysPerSecond;
-    resetInputs();
-  }
-}
-
-function resizeHandler () {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight - 38;
-  chart.resize();
-  chart.update();
 }

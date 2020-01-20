@@ -19,73 +19,13 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <script defer src="https://berkerol.github.io/libraries/form.js"></script>
+  <script defer src="https://berkerol.github.io/libraries/market.js"></script>
   <script defer src="btm.js"></script>
 </head>
 
 <body>
-  <div class="modal fade" id="settings" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Settings</h4>
-          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-row">
-              <div class="form-group col">
-                <label for="days">Total Days</label>
-                <input type="number" class="form-control" id="days" min="3" max="999">
-              </div>
-              <div class="form-group col">
-                <label for="min">Possible Min Price</label>
-                <input type="number" class="form-control" id="min" min="1" max="9999">
-              </div>
-              <div class="form-group col">
-                <label for="change">Base Change</label>
-                <input type="number" class="form-control" id="change" min="0" max="100">
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col">
-                <label for="price">Initial Price</label>
-                <input type="number" class="form-control" id="price" min="1" max="9999">
-              </div>
-              <div class="form-group col">
-                <label for="max">Possible Max Price</label>
-                <input type="number" class="form-control" id="max" min="1" max="9999">
-              </div>
-              <div class="form-group col">
-                <label for="daysPerSecond">Days/Second</label>
-                <input type="number" class="form-control" id="daysPerSecond" min="1" max="9">
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col">
-                <label for="money">Initial Money</label>
-                <input type="number" class="form-control" id="money" min="1" max="99999">
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="save()" accesskey="a" data-dismiss="modal"><i class="fas fa-save"></i> S<u>a</u>ve</button>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="container">
-    <div class="d-flex justify-content-center">
-      <h5 class="my-auto"><span>Money: $<span id="currentMoney"></span></span><span class="ml-4 mr-4">Stocks: <span id="stocks"></span></span><span>Day: <span id="currentDay"></span></span><span class="ml-4 mr-4">Price: $<span id="currentPrice"></span></span></h5>
-      <div class="btn-group">
-        <button type="button" class="btn btn-success" onclick="if(!locked)buy()" accesskey="b"><i class="fas fa-check"></i> <u>B</u>uy</button>
-        <button type="button" class="btn btn-danger" onclick="if(!locked)sell()" accesskey="s"><i class="fas fa-times"></i> <u>S</u>ell</button>
-        <button type="button" class="btn btn-primary" onclick="if(!locked)play()" accesskey="c" id="play"><i class="fas fa-play"></i> <u>C</u>ontinue</button>
-        <button type="button" class="btn btn-warning" onclick="if(!locked)end()" accesskey="e"><i class="fas fa-fast-forward"></i> <u>E</u>nd</button>
-        <button type="button" class="btn btn-info" onclick="restart()" accesskey="r"><i class="fas fa-sync"></i> <u>R</u>estart</button>
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#settings" accesskey="t"><i class="fas fa-cog"></i> Se<u>t</u>tings</button>
-      </div>
-    </div>
   </div>
   <canvas id="canvas">Your browser doesn't support HTML5.</canvas>
 </body>
