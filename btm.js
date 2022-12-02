@@ -1,4 +1,4 @@
-/* global Chart createHeaderMenuRow createModalButton createModal keyUpHandler canvas ctx containerElements defaultDays defaultPrice defaultMinPrice defaultMaxPrice defaultBaseChange defaultDaysPerSecond color gradient days:writable price:writable minPrice:writable maxPrice:writable baseChange:writable daysPerSecond:writable currentDay:writable currentPrice:writable trend trendPeriod volatility volatilityPeriod interval:writable updateTrend updateVolatility resizeHandler */
+/* global Chart createButtonGroup createElement createRow createModalButton createModal keyUpHandler canvas ctx containerElements defaultDays defaultPrice defaultMinPrice defaultMaxPrice defaultBaseChange defaultDaysPerSecond color gradient days:writable price:writable minPrice:writable maxPrice:writable baseChange:writable daysPerSecond:writable currentDay:writable currentPrice:writable trend trendPeriod volatility volatilityPeriod interval:writable updateTrend updateVolatility resizeHandler */
 const defaultMoney = 200;
 
 let money;
@@ -7,9 +7,9 @@ let stocks;
 let currentMoney;
 
 const modalElements = [[['Total Days', 'days', 3, 999, 'number'], ['Possible Min Price', 'min', 1, 9999, 'number'], ['Base Change', 'change', 0, 100, 'number']], [['Initial Price', 'price', 1, 9999, 'number'], ['Possible Max Price', 'max', 1, 9999, 'number'], ['Days/Second', 'daysPerSecond', 1, 9, 'number']], [['Initial Money', 'money', 1, 99999, 'number']]];
-const headerElements = ['h5', 'my-auto', '<span>Money: $<span id="currentMoney"></span></span><span class="ms-4 me-4">Stocks: <span id="stocks"></span></span><span>Day: <span id="currentDay"></span></span><span class="ms-4 me-4">Price: $<span id="currentPrice"></span></span>'];
+const headerElements = ['h5', '<span>Money: $<span id="currentMoney"></span></span><span class="ms-4 me-4">Stocks: <span id="stocks"></span></span><span>Day: <span id="currentDay"></span></span><span class="ms-4 me-4">Price: $<span id="currentPrice"></span></span>', 'my-auto'];
 const buttonElements = [['success', 'if(!locked)buy()', 'b', 'check', '<u>B</u>uy'], ['danger', 'if(!locked)sell()', 's', 'times', '<u>S</u>ell'], ['primary', 'if(!locked)play()', 'c', 'play', '<u>C</u>ontinue'], ['warning', 'if(!locked)end()', 'e', 'fast-forward', '<u>E</u>nd'], ['info', 'restart()', 'r', 'sync', '<u>R</u>estart'], ['info', '', 't', 'cog', 'Se<u>t</u>tings']];
-const header = createHeaderMenuRow('d-flex justify-content-center', 'btn-group', headerElements, buttonElements);
+const header = createRow('d-flex justify-content-center', [createElement(...headerElements), createButtonGroup('btn-group', buttonElements)]);
 const buttonGroup = header.children[1];
 const playButton = buttonGroup.children[2];
 createModalButton(buttonGroup, 5);
